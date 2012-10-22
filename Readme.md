@@ -1,2 +1,0 @@
-PDCApp Project
-Pinkmoments App
