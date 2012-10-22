@@ -1,0 +1,17 @@
+{% extends "website/friends_base.html" %}
+
+{% block current %}
+	<li><a href="{% url view_user_friends %}">Tus amigas</a></li>
+	<li><a href="{% url view_friend_requests %}">Peticiones</a></li>
+	<li><a class="current" href="{% url view_friend_addition %}">Añadir</a></li>
+{% endblock %}
+
+{% block friend_content %}
+	<div id="addfriends">
+		<a class="bigbutton find_pink" href="">Buscar amigas en Pink moments</a>
+		<a class="bigbutton find_face" href="">Find friends from Facebook</a>
+		<a class="bigbutton send_mail"href="">Mandar email</a>
+	</div>
+{% endblock %}
+
+			

@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Plandechicas</title>
+        
+        {# Style files #}
+        <link href="{{ STATIC_URL }}plandechicas/css/style.css" rel="stylesheet">
+        {# <link href="{{ STATIC_URL }}plandechicas/css/style.less" rel="stylesheet"> #}
+
+        {# Scripts #}
+        {% block scripts %}
+        {% endblock %}
+    </head>
+    <!-- GEN3RAL HEADER -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="{% url home %}"><img src="{{ STATIC_URL }}plandechicas/img/header_logo.png" alt=""></a>
+            </div>
+            <nav>
+                {% block header_current %}
+                
+                {% endblock %}
+            </nav>
+            <div class="profile_button_container">
+                {% if user.is_authenticated %}
+                    <a class="profile_button" href="{% url view_profile %}">PERFIL</a>
+                {% else %}
+                    <a class="profile_button" href="{% url login %}" >LOGIN</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="clear"></div>
+    </header>
+    <section class="main_content">
+        <div class="container">
+          {% block content %}
+
+          {% endblock %}
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p style="float: left;">Plandechicas 2012</p>
+            {% if user.is_authenticated %}
+                <a href="{% url logout %}" style="margin: auto 15px;">Logout</a>
+            {% endif %}
+        </div>
+    </footer>
+    {% block lastscripts %}
+    {% endblock %}
+</body>
+</html>

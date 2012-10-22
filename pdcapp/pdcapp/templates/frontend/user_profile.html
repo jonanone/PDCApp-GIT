@@ -1,0 +1,88 @@
+{% extends "dashboard/dash_base.html" %}
+{% load dajaxice_templatetags %}
+
+{% block script_links %}
+    {% dajaxice_js_import %}
+    <script type="text/javascript">
+    function new_message_callback(data){
+        messageBox = document.getElementById('message_text')
+        messageBox.value = ""
+    }
+    function friend_request_callback(data){
+        request_message = document.getElementById('request_message')
+        request_message.value = ""
+    }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="row profile">
+        <div class="span5">
+            <div class="row">
+                <img class="profile_img" src="{{STATIC_URL}}{{profile.profile_image}} "alt="">
+            </div>
+            <hr>
+        </div>
+        <div class="span7 profile_info">
+            <h1>{{profile.first_name}} {{profile.last_name}}</h1>
+            <div class="profile_data">
+                <p>{{profile.location}}</p>
+                <p>
+                    {% for instrument in profile.instruments.all %}
+                    {{ instrument }},
+                    {% endfor %}
+                </p>
+                <p>
+                    {% for style in profile.styles.all %}
+                    {{ style }},
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="profile_links">
+                <ul class="unstyled">
+                    <li><i class="icon-user"></i><a href="http://twitter.com" title="twitter link">http://twitter.com</a></li>
+                </ul>
+            </div>
+            {% if my_profile %}
+            {% else %}
+            <div class="profile_actions">
+                <div class="modal hide fade" id="request_modal">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h3>Petición de amistad</h3>
+                    </div>
+                    <form action="" method="post" accept-charset="utf-8">
+                    <div class="modal-body">
+                            <p>Envíale un mensaje a tu próxima amiga:</p>
+                            <textarea id="request_message" name="request_message"></textarea>
+                            <input type="hidden" name="action" value="request">
+                            <input type="hidden" id="sender" name="variable" value="{{ username }}">
+                            <input type="hidden" id="receiver" name="variable" value="{{ profile.user.username }}">
+                    </div>
+                    {% csrf_token %}
+                    <div class="modal-footer">
+                        <a href="#" class="btn" onclick="friend_request_callback()" data-dismiss="modal">Cancel</a>
+                        <input type="button" data-dismiss="modal" class="btn btn-primary" value="Send" onclick="Dajaxice.plandechicasapp.send_friend_request(friend_request_callback, {'request_message':document.getElementById('request_message').value, 'receiver':document.getElementById('receiver').value})">
+                    </div>
+                    </form>
+                </div>
+                
+                <a data-toggle="modal" href="#request_modal" id="add_contact" class="btn btn-large" title=""><i class="icon-user"></i>Solicitar amistad</a>
+            </div>
+            {% endif %}
+            <div class="profile_bio">
+                {% autoescape off%} {{profile.user}} {% endautoescape %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+<script>
+    $('#message_modal').modal({
+        show: false
+    })
+    $('#request_modal').modal({
+        show: false
+    })
+</script>
+{% endblock %}

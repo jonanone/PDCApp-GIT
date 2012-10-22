@@ -1,0 +1,29 @@
+{% extends "website/pots_base.html" %}
+
+{% block current %}
+	<li><a href="{% url view_what_for pot_id=pot.id %}">Para qué</a></li>
+	<li><a class="current" href="{% url view_who pot_id=pot.id %}">Con quién</a></li>
+	<li><a href="{% url view_what pot_id=pot.id %}">Qué</a></li>
+	<li><a href="{% url view_pot_details pot_id=pot.id %}">Cuentas</a></li>
+{% endblock %}
+
+{% block pot_content %}
+<div id="pot_index">
+	<div class="button_container">
+		<a class="linearbutton send_mail" href="{% url view_who2 pot_id=pot.id %}">Añadir otra</a>
+	</div>
+	<div class="clear"></div>
+	<ul>
+		{% for poter in pot.user_list.all %}
+		<li>
+			<div class="element_wrapper">
+				<a class="friendimage" href="{% url view_user_profile paramuser=poter.user.username %}"><img src="{{STATIC_URL}}{{poter.profile_image}}" alt=""></a>
+				<a class="friendname" href="{% url view_user_profile paramuser=poter.user.username %}"><p> {{ poter.first_name }} {{ poter.last_name }}</p></a>
+				<a class="arrow" href="{% url view_user_profile paramuser=poter.user.username %}"></a>
+				<div class="clear"></div>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}

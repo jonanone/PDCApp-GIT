@@ -1,0 +1,40 @@
+{% extends "dashboard/dash_base.html" %}
+
+{% block content %}
+
+    <h1>Botes</h1>
+    <hr>
+    <ul id="pots_list" class="thumbnails">
+        {% for pot in pots.all %}
+        <li class="span3">
+            <a href="{% url view_pot_details pot_id=pot.id %}" title="">
+                <div class="thumbnail">
+                    <div class="inside_thumbail">
+                        {{ pot.what_for }} de {{pot.who_for}}
+                    </div>
+                    <h3>Participan</h3>
+                    {% for poter in pot.user_list.all %}
+                    <div class="inside_thumbail">
+                        {{poter.user}}
+                    </div>
+                    {% endfor %}
+                    <div>
+                    {% if pot.is_paid %}
+                        <p>Pagado</p>
+                    {% else %}
+                        <p>No pagado</p>
+                    {% endif %}    
+                    </div> 
+                </div>
+            </a>
+        </li>
+        {% endfor %}
+        <li class="span3">
+            <a href="{% url view_what_for pot_id=0 %}" title="">
+                <div class="thumbnail">
+                    <h3>Crear un nuevo bote</h3>
+                </div>
+            </a>
+        </li>
+    </ul>
+{% endblock %}

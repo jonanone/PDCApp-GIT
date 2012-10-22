@@ -1,0 +1,66 @@
+{% extends "website/friends_base.html" %}
+
+{% load dajaxice_templatetags %}
+
+{% block script_links %}
+    {% dajaxice_js_import %}
+    <script type="text/javascript">
+    i=0
+    function accept_friend_request_callback(data){
+        receiver = document.getElementById('receiver'+i)
+        receiver.value = ""
+    }
+    </script>
+{% endblock %}
+
+{% block current %}
+	<li><a href="{% url view_user_friends %}">Tus amigas</a></li>
+	<li><a class="current" href="{% url view_friend_requests %}">Peticiones</a></li>
+	<li><a href="{% url view_friend_addition %}">Añadir</a></li>
+{% endblock %}
+
+<!-- CONTENIDO EN DJANGO -->
+{% block friend_content %}
+	<div id="requestindex">
+		{% for friendrequest in friendrequests %}
+		<ul>
+			<li>
+				<div class="element_wrapper">
+					<a class="friendimage" href="{% url view_user_profile paramuser=friendrequest.sender.user.username %}"><img src="{{STATIC_URL}}{{friendrequest.sender.profile_image}}" alt=""></a>
+					<a class="friendname" href="{% url view_user_profile paramuser=friendrequest.sender.user.username %}"><p>{{ friendrequest.sender.first_name }} {{ friendrequest.sender.last_name }}</p></a>
+					<a class="arrow" href="{% url view_user_profile paramuser=friendrequest.sender.user.username %}"></a>
+					<div class="clear"></div>
+				</div>
+			</li>
+		</ul>
+		{% endfor %}
+		{% for readfrequest in readfrequests %}
+		<ul>
+			<li>
+				<div class="element_wrapper">
+					<a class="friendimage" href="{% url view_user_profile paramuser=readfrequest.sender.user.username %}"><img src="{{STATIC_URL}}{{readfrequest.sender.profile_image}}" alt=""></a>
+					<a class="friendname" href="{% url view_user_profile paramuser=readfrequest.sender.user.username %}"><p>{{ readfrequest.sender.first_name }} {{ readfrequest.sender.last_name }}</p></a>
+					<a class="arrow" href="{% url view_user_profile paramuser=readfrequest.sender.user.username %}"></a>
+					<div class="clear"></div>
+				</div>
+			</li>
+		</ul>
+		{% endfor %}
+		{% for acceptedfrquest in acceptedfrequests %}
+		<ul>
+			<li>
+				<div class="element_wrapper">
+					<a class="friendimage" href="{% url view_user_profile paramuser=acceptedfrquest.sender.user.username %}"><img src="{{STATIC_URL}}{{acceptedfrquest.sender.profile_image}}" alt=""></a>
+					<a class="friendname" href="{% url view_user_profile paramuser=acceptedfrquest.sender.user.username %}"><p>{{ acceptedfrquest.sender.first_name }} {{ acceptedfrquest.sender.last_name }}</p></a>
+					<a class="arrow" href="{% url view_user_profile paramuser=acceptedfrquest.sender.user.username %}"></a>
+					<div class="clear"></div>
+				</div>
+			</li>
+		</ul>
+		{% endfor %}
+	</div>
+</div>
+
+<!-- FINAL DEL CONTENIDO EN DJANGO -->
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "website/friends_base.html" %}
+
+{% block current %}
+	<li><a class="current" href="{% url view_user_friends %}">Tus amigas</a></li>
+	<li><a href="{% url view_friend_requests %}">Peticiones</a></li>
+	<li><a href="{% url view_friend_addition %}">Añadir</a></li>
+{% endblock %}
+
+{% block friend_content %}
+<div id="friendindex">
+	<ul>
+		{% for friend in friends.all %}
+		<li>
+			<div class="element_wrapper">
+				<a class="friendimage" href="{% url view_user_profile paramuser=friend.user.username %}"><img src="{{STATIC_URL}}{{friend.profile_image}}" alt=""></a>
+				<a class="friendname" href="{% url view_user_profile paramuser=friend.user.username %}"><p>{{ friend.first_name }} {{ friend.last_name }}</p></a>
+				<a class="arrow" href="{% url view_user_profile paramuser=friend.user.username %}"></a>
+				<div class="clear"></div>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+
+{% endblock %}

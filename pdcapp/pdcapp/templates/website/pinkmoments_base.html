@@ -1,0 +1,31 @@
+{% extends "website/web_base.html" %}
+
+{% block header_current %}
+    <ul>
+        <li><a href="{% url view_user_friends %}">Amigas</a></li>
+        <li><a class="current" href="{% url view_user_calendar %}">Pink Moments</a></li>
+        <li><a href="{% url view_user_pots %}">Botes</a></li>
+        <li><a href="{% url view_boutique %}">Regalos</a></li>
+    </ul>
+{% endblock %}
+
+<!-- CONTENIDO EN DJANGO -->
+{% block content %}
+<div class="content_menu">
+	<div class="nav">
+		<ul>
+			{% block current %}
+			{% endblock %}
+			<div class="clear"></div>
+		</ul>
+	</div>
+</div>
+<div class="clear"></div>
+<div class="central_content">
+	{% block pinkmoments_content %}
+	{% endblock %}
+	
+</div>
+
+<!-- FINAL DEL CONTENIDO EN DJANGO -->
+{% endblock %}

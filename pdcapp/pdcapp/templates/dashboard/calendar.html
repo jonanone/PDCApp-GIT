@@ -1,0 +1,73 @@
+{% extends "website/pinkmoments_base.html" %}
+{% load gencal %}
+{% load dajaxice_templatetags %}
+
+{% block script_links %}
+    <link href="{{ STATIC_URL }}texteditor/bootstrap-wysihtml5.css" rel="stylesheet">
+    <script src="{{ STATIC_URL }}texteditor/wysihtml5.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}texteditor/bootstrap-wysihtml5.js" type="text/javascript"></script>
+        
+
+
+
+{% dajaxice_js_import %}
+    <script type="text/javascript">
+    function remove_notifications_callback(data){
+        notif = document.getElementById('notif')
+        notif.style.visibility = 'hidden'
+        notif_circle = document.getElementById('calendar_notifications_circle')
+        notif_circle.style.visibility = 'hidden'
+    }
+    </script>
+{% endblock %}
+
+{% block current %}
+    <li><a class="current" href="{% url view_user_calendar %}">Calendario</a></li>
+    <li><a href="{% url view_pinkmoments_generator %}">Generador</a></li>
+{% endblock %}
+
+{% block pinkmoments_content %}
+    <h1>Calendario</h1>
+    <div id="notif" >Tienes {{calendar_num_notifications}} notificaciones de calendario</div>
+
+    <form action="" method="post" accept-charset="utf-8">
+        <div class="modal-footer">
+            <input type="button" data-dismiss="modal" class="btn btn-primary" value="Aceptar" onclick="Dajaxice.plandechicasapp.remove_notifications(remove_notifications_callback, {'name':'calendar'})">
+        </div>
+    </form>
+
+    <hr>
+    <!-- {% for notification in notifications %}
+        <li class="span3">
+        <a class="thumbnail" href="" title="">
+            <div class="inside_thumbail">
+                {{ notification.notification_type }} de {{ notification.owner }}
+            </div>
+        </a>
+        </li>
+    {% endfor %} -->
+    <div class="pagination">
+      <ul>
+        <li><a href="{% url view_other_calendar month=1 %}">Enero</a></li>
+        <li><a href="{% url view_other_calendar month=2 %}">Febrero</a></li>
+        <li><a href="{% url view_other_calendar month=3 %}">Marzo</a></li>
+        <li><a href="{% url view_other_calendar month=4 %}">Abril</a></li>
+        <li><a href="{% url view_other_calendar month=5 %}">Mayo</a></li>
+        <li><a href="{% url view_other_calendar month=6 %}">Junio</a></li>
+        <li><a href="{% url view_other_calendar month=7 %}">Julio</a></li>
+        <li><a href="{% url view_other_calendar month=8 %}">Agosto</a></li>
+        <li><a href="{% url view_other_calendar month=9 %}">Septiembre</a></li>
+        <li><a href="{% url view_other_calendar month=10 %}">Octubre</a></li>
+        <li><a href="{% url view_other_calendar month=11 %}">Noviembre</a></li>
+        <li><a href="{% url view_other_calendar month=12 %}">Diciembre</a></li>
+      </ul>
+    </div>
+    <div id="calendar">
+        {% gencal obj_list year month %}
+    </div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    $('#richeditor').wysihtml5();
+</script>
+{% endblock %}

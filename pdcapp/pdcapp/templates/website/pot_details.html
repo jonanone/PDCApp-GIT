@@ -1,0 +1,88 @@
+{% extends "website/pots_base.html" %}
+
+{% block current %}
+	<li><a href="{% url view_what_for pot_id=pot.id %}">Para qué</a></li>
+	<li><a href="{% url view_who pot_id=pot.id %}">Con quién</a></li>
+	<li><a href="{% url view_what pot_id=pot.id %}">Qué</a></li>
+	<li><a class="current" href="{% url view_pot_details pot_id=pot.id %}">Cuentas</a></li>
+{% endblock %}
+
+{% block pot_content %}
+<div class="section_title">
+	<div class="section_title_wrapper">
+		<p>{{ pot.what_for }} de {{pot.who_for}}</p>
+	</div>
+</div>
+<div id="pot_what_content">
+	<div class="pot_what_table">
+		<ul>
+			{% for product in pot.product_list.all %}
+			<li class="pot_what_box">
+				<div class="box_content outer">
+					<div class="inner">
+						<a class="inner_img" href="{{ product.link }}"><img src="{{MEDIA_URL}}{{ product.profile_image }}" alt=""></a>
+						<div class="inner_info">
+							<div class="text">
+								<p class="name">
+									{{ product.name }}
+								</p>
+								<p class="price">
+									{{product.price}}€
+								</p>
+							</div>
+							<div class="vote">
+								<p>votar</p>
+								<div class="image"></div>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>							
+				</div>
+			</li>
+			{% endfor %}
+			<div class="clear"></div>
+		</ul>
+	</div>
+</div>
+<div class="clear"></div>
+<div id="pot_resume">
+	<div class="pot_resume_wrapper">
+		<div class="pot_price">
+			<p class="pot_price_label">Total: </p>
+			<p class="pot_price_value">{{pot.price}}€</p>
+		</div>
+		<a class="change_button resume_button" href="">Cambiar</a>
+		<a class="account_button resume_button" href="">Comprar</a>
+	</div>
+</div>
+<div class="section_title">
+	<div class="section_title_wrapper">
+		<p>Cuentas de la abuela</p>
+		<a class="linearbutton find_pink" href="">Recordar pagar</a>
+	</div>
+</div>
+<div id="pot_account_who">
+	<ul>
+		{% for poter in pot.user_list.all %}
+		<li>
+			<div class="element_wrapper is_admin">
+				<a class="friendimage" href="{% url view_user_profile paramuser=poter.user.username %}"><img src="{{STATIC_URL}}{{poter.profile_image}}" alt=""></a>
+				<a class="friendname" href="{% url view_user_profile paramuser=poter.user.username %}"><p>{{ poter.first_name }} {{ poter.last_name }}</p></a>
+				<a class="paid" href="{% url view_user_profile paramuser=poter.user.username %}"><p class="paid_yes">Pagado</p></a>
+				<a class="admin" href="{% url view_user_profile paramuser=poter.user.username %}"><p>(Admin)</p></a>
+				<a class="friendamount" href="{% url view_user_profile paramuser=poter.user.username %}"><p>{{how_much_pay}}€</p></a>
+				<div class="clear"></div>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+<div id="change_admin_button" >
+	<div class="change_admin_wrapper">
+		<a class="linearbutton" href="">cambiar admin</a>
+	</div>
+</div>
+<!-- FINAL DEL CONTENIDO EN DJANGO -->
+
+
+{% endblock %}

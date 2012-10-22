@@ -1,0 +1,36 @@
+{% extends "pot/pots_base.html" %}
+
+{% block scripts %}
+    <script type="text/javascript">
+    function edit_what_for(data){
+        form = document.getElementById('edit_what_for_form')
+        form.style.visibility = 'visible'
+    }
+    function what_for_edited(data){
+    	form = document.getElementById('edit_what_for_form')
+        form.style.visibility = 'hidden'
+    }
+    </script>
+{% endblock %}
+
+{% block pot_content %}
+    <h1>¿Quién?</h1>
+    <hr> 
+    <div>
+        <h3>Participan</h3>
+        {% for poter in pot.user_list.all %}
+        <div class="inside_thumbail">
+            {{poter.user}}
+        </div>
+        {% endfor %}
+        <div>
+        	<h3>Añadir amigas</h3>
+			<form action="" enctype="multipart/form-data" method="post">
+		        <div>{{ who_form.user_list }}</div>
+                <p>Selecciona todas las personas que quieras que se encuentren en el bote.</p>
+		        {% csrf_token %}
+		        <input type="submit" value="Añadir">
+		    </form>
+        </div>
+    </div>
+{% endblock %}

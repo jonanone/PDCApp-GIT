@@ -1,0 +1,118 @@
+{% extends "website/gift_base.html" %}
+
+{% block scripts %}
+	<script type="text/javascript" src="{{ STATIC_URL }}plandechicas/js/jquery.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}plandechicas/js/simplemodal.js"></script>
+    <script type="text/javascript">i=0</script>
+{% endblock %}
+
+{% block current %}
+<ul>
+	<li><a href="{% url view_boutique %}">Boutique</a></li>
+	<li><a class="current" href="{% url view_fichajes %}">Fichajes</a></li>
+	<div class="clear"></div>
+</ul>
+{% endblock %}
+
+<!-- CONTENIDO EN DJANGO -->
+{% block gift_content %}
+<div id="pot_what_content">
+	<div class="pot_what_table">
+		<ul>
+			{% for product in fichajes.all %}
+			<li class="pot_what_box boutique_box" id="pb" onclick="markActiveLink(this);">
+				<div class="box_content outer">
+					<div class="inner">
+						<div class="inner_img"><img src="{{MEDIA_URL}}{{ product.profile_image }}" alt=""></div>
+						<div class="inner_info">
+							<div class="text">
+								<p class="name">
+									{{ product.name }}
+								</p>
+								<p class="price">
+									{{product.price}}€
+								</p>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>							
+				</div>
+			</li>
+			<div class="modal_window" id="modal_text">
+				<div class="modal_header">
+					<h1 class="modal_title">{{ product.name }}</h1>
+					<div class="modal_done">
+						<a class="modal_close" href=""><img src="{{ STATIC_URL }}plandechicas/img/x-gris.png"></a>
+					</div>
+				</div>
+				<div class="modal_content">
+					<div class="modal_img">
+						<img src="{{MEDIA_URL}}{{ product.profile_image }}" alt="">
+						<div class="modal_marca_container">
+							<div class="modal_marca_wrapper">
+								<div class="modal_marca"><img src="{{ STATIC_URL }}plandechicas/img/marca-horizontal.png"></div>
+							</div>
+						</div>
+					</div>
+					<div class="modal_data">
+						<div class="misc_modal_data">
+							<p class="misc_data_title">Detalles</p>
+							<p>Americana tipo boyfriend ASOS Collection, en un acabado tejido. Los detalles incluyen: diseño de botonadura simple, solapas finas con muesca, cierre de botón en la parte delantera, dos bolsillos insertados y bolsillo monedero pequeño, mangas tres cuartos con forro de lunares de color en contraste, pinzas cosidas para dar forma y abertura en la parte posterior del bajo. Americana de corte sartorial holgado.</p>
+							<p><a href="{{ product.link }}">{{ product.link }}</a></p>
+						</div>
+						<div class="modal_resume">
+							<p>Precio: </p>
+							<p>{{product.price}} €</p>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div class="modal_done">
+						{% if user.is_authenticated %}
+							{% if product in fichajes.all|dictsort:"id" %}
+								<a class="smallbutton" href="">Fichado</a>
+							{% else %}
+								<a class="smallbutton" href="">Fichar</a>
+							{% endif %}
+							<a class="smallbutton" href="">Añadir a un bote</a>
+							<div class="clear"></div>
+							<a class="linearbutton find_pink" href="{{ product.link }}">Comprar</a>
+						{% else %}
+							<a class="smallbutton" href="{% url login %}">Fichar</a>
+							<a class="smallbutton" href="{% url login %}">Añadir a un bote</a>
+							<div class="clear"></div>
+							<a class="linearbutton find_pink" href="{{ product.link }}">Comprar</a>
+						{% endif %}
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<script type="text/javascript">
+                i++
+                modaltext = document.getElementById('modal_text')
+                modaltext.id = 'modal_textpb'+i
+                productbox = document.getElementById('pb')
+                productbox.id = 'pb'+i
+
+            </script>
+			{% endfor %}
+			<div class="clear"></div>
+		</ul>
+	</div>
+</div>
+<div class="clear"></div>
+<!-- FINAL DEL CONTENIDO EN DJANGO -->
+{% endblock %}
+
+{% block lastscripts %}
+	<script type="text/javascript">
+		/*$('.pot_what_box').click(function (e) {
+			$('#modal_text').modal();
+			return false;
+		});*/
+		function markActiveLink(el) {
+			var numid = $(el).attr("id");
+			var varname = '#modal_text'+numid;
+		    $(varname).modal();
+		}
+	</script>
+{% endblock %}

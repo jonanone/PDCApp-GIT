@@ -1,0 +1,43 @@
+{% extends "pot/pots_base.html" %}
+{% load dajaxice_templatetags %}
+
+{% block pot_content %}
+    <h1>{{ pot.what_for }} de {{pot.who_for}}</h1>
+    <hr>
+    <h2>Resumen del bote</h2>
+    <p>BoteID:{{pot.id}}</p>
+    <hr>
+    <div>
+        <h3>Participan</h3>
+        {% for poter in pot.user_list.all %}
+        <div class="inside_thumbail">
+            <a  href="{% url view_user_profile paramuser=poter.user.username %}" title="">{{poter.user}}</a>
+        </div>
+        {% endfor %}
+        <div>
+            <h3>Producto/s</h3>
+            <ul id="pots_list" class="thumbnails">
+            {% for product in pot.product_list.all %}
+                <li class="span3">
+                    <a href="{{ product.link }}" title="">
+                        <div class="thumbnail">
+                            <div class="inside_thumbail">
+                                <h3>{{ product.name }}</h3>
+                                <img class="profile_img" src="{{MEDIA_URL}}{{ product.profile_image }} "alt="">
+                                <div>{{product.price}}€</div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div>
+        {% if pot.is_paid %}
+            <p>Pagado</p>
+        {% else %}
+            <p>No pagado</p>
+        {% endif %}    
+        </div> 
+    </div>
+{% endblock %}

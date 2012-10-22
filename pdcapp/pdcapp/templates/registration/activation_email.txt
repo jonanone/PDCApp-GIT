@@ -1,0 +1,6 @@
+{% load humanize %}
+Alguien, esperemos que tú, se ha registrado en Plan de Chicas utilizando esta cuenta de correo. Si has sido tú y quieres activar y usar tu cuenta, haz click en el link que hay debajo o copia y pégalo en la barra de direcciones de tu nacegador: 
+
+http://127.0.0.1:8000/accounts/activate/{{ activation_key }}/
+
+Si no has solicitado el registro, no tienes que hacer nada; no recibirás más emails nuestros y la cuenta expirará automáticamente en {{ expiration_days|apnumber }} días.

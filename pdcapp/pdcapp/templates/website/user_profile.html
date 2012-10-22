@@ -1,0 +1,97 @@
+{% extends "website/web_base.html" %}
+{% load dajaxice_templatetags %}
+
+{% block script_links %}
+    {% dajaxice_js_import %}
+    <script type="text/javascript" src="{{ STATIC_URL }}plandechicas/js/jquery.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}plandechicas/js/simplemodal.js"></script>
+    <script type="text/javascript">
+    function new_message_callback(data){
+        messageBox = document.getElementById('message_text')
+        messageBox.value = ""
+    }
+    function friend_request_callback(data){
+        request_message = document.getElementById('request_message')
+        request_message.value = ""
+    }
+    </script>
+{% endblock %}
+
+{% block header_current %}
+     <ul>
+        <li><a href="{% url view_user_friends %}">Amigas</a></li>
+        <li><a href="{% url view_user_calendar %}">Pink Moments</a></li>
+        <li><a  href="{% url view_user_pots %}">Botes</a></li>
+        <li><a href="{% url view_boutique %}">Regalos</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="profile_content">
+        <div class="image_container">
+            <img class="profile_img" src="{{STATIC_URL}}{{profile.profile_image}} "alt="">
+        </div>
+        <div class="profile_info">
+            <h1>{{profile.first_name}} {{profile.last_name}}</h1>
+            {% if profile.location != none %}
+            <div class="profile_data">
+                <p>{{profile.location}}</p>
+            </div>
+            {% endif %}
+            {% if my_profile %}
+            {% else %}
+            <div class="modal_window" id="request_modal">
+                <div class="modal_header">
+                    <button type="button" class="modal_done">×</button>
+                    <h3>Petición de amistad</h3>
+                </div>
+                <form action="" method="post" accept-charset="utf-8">
+                <div class="modal_content">
+                        <p>Envíale un mensaje a tu próxima amiga:</p>
+                        <textarea id="request_message" name="request_message"></textarea>
+                        <input type="hidden" name="action" value="request">
+                        <input type="hidden" id="sender" name="variable" value="{{ username }}">
+                        <input type="hidden" id="receiver" name="variable" value="{{ profile.user.username }}">
+                </div>
+                {% csrf_token %}
+                <div class="modal_footer modal_done">
+                    <a href="#" class="btn" onclick="friend_request_callback()">Cancel</a>
+                    <input type="button" class="btn btn-primary" value="Send" onclick="Dajaxice.plandechicasapp.send_friend_request(friend_request_callback, {'request_message':document.getElementById('request_message').value, 'receiver':document.getElementById('receiver').value})">
+                </div>
+                </form>
+            </div>
+            <div class="modal_open">
+                <a href="" id="add_contact" class="linearbutton find_pink" title="">Invitar</a>
+            </div>
+            {% endif %}
+            
+            <div class="clear"></div>
+            <div class="special_dates">
+                <h1>Pink Moments</h1>
+                <ul>
+                {% for special_date in special_dates %}
+                    <li>
+                    <p class="date-type">{{ special_date.date_type }}</p>
+                    <p class="date">{{ special_date.date }}</p>
+                    <div class="clear"></div>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+<script>
+    $('#modal_open').click(function (e) {
+        $('#request_modal').modal();
+        return false;
+    });
+    // $('#message_modal').modal({
+    //     show: false
+    // })
+    // $('#request_modal').modal({
+    //     show: false
+    // })
+</script>
+{% endblock %}

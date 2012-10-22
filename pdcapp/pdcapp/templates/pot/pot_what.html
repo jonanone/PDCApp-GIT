@@ -1,0 +1,41 @@
+{% extends "pot/pots_base.html" %}
+
+{% block pot_content %}
+    <h1>¿Qué?</h1>
+    <div>Añadir nuevo producto</div>
+    <hr>
+    <h2>Productos elegidos</h2>
+    <ul id="pots_list" class="thumbnails">
+        {% for product in product_list.all %}
+        <li class="span3">
+            <a href="{{ product.link }}" title="">
+                <div class="thumbnail">
+                    <div class="inside_thumbail">
+                        <h3>{{ product.name }}</h3>
+                        <img class="profile_img" src="{{MEDIA_URL}}{{ product.profile_image }} "alt="">
+                        <div>{{product.price}}€</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <h2>Opciones</h2>
+    {% for choice in choices.all %}
+    <ul id="pots_list" class="thumbnails">
+        <li class="span3">
+            <a href="{{ choice.product_choice.link }}" title="">
+                <div class="thumbnail">
+                    <div class="inside_thumbail">
+                        <h3>{{ choice.product_choice.name }}</h3>
+                        <img class="profile_img" src="{{MEDIA_URL}}{{ choice.product_choice.profile_image }} "alt="">
+                        <div>{{choice.product_choice.price}}€ </div>
+                        <div>Votos: {{ choice.votes }}</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

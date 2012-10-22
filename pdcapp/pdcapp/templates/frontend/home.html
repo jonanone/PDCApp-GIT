@@ -1,0 +1,55 @@
+{% extends "frontend/home_base.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+{% else %}
+<div class="login_button_container">
+    <a class="linearbutton" href="{% url login %}">LOGIN</a>
+</div>
+{% endif %}
+<div class="clear"></div>
+<div id="home-button-content">
+    <ul >
+        <li>
+            <div>
+                <a href="{% url view_user_friends %}">
+                    <img src="{{ STATIC_URL }}plandechicas/img/fotos-jonan-1.jpg">
+                    <p>Amigas</p>
+                </a>
+                <div class="clear"></div>
+            </div>
+        </li>
+        <li>
+            <div>
+                <a href="{% url view_user_calendar %}">
+                    <img src="{{ STATIC_URL }}plandechicas/img/fotos-jonan-2.jpg">
+                    <p>Pink Moments</p>
+                </a>
+                <div class="clear"></div>
+            </div>
+        </li>
+        <li>
+            <div>
+                <a href="{% url view_user_pots %}">
+                    <img src="{{ STATIC_URL }}plandechicas/img/fotos-jonan-3.jpg">
+                    <p>Botes</p>
+                </a>
+                <div class="clear"></div>
+            </div>
+        </li>
+        <li>
+            <div>
+                <a href="{% url view_boutique %}">
+                    <img src="{{ STATIC_URL }}plandechicas/img/fotos-jonan-4.jpg">
+                    <p>Regalos</p>
+                </a>
+                <div class="clear"></div>
+            </div>
+        </li>
+        <div class="clear"></div>
+    </ul>
+</div>
+
+
+
+{% endblock %}

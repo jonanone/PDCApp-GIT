@@ -1,0 +1,18 @@
+{% extends "dashboard/dashboard.html" %}
+
+{% block dashboard_content %}
+    <h1>Friends</h1>
+    <hr>
+    <ul id="friend_list" class="thumbnails">
+        {% for friend in friends.all %}
+        <li class="span3">
+        <a class="thumbnail" href="{% url view_user_profile paramuser=friend.user.username %}" title="">
+            <img src="{{STATIC_URL}}{{friend.profile_image}}" alt="">
+            <div class="inside_thumbail">
+                {{ friend.first_name }} {{ friend.last_name }}
+            </div>
+        </a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

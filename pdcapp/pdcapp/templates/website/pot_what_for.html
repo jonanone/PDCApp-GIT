@@ -1,0 +1,58 @@
+{% extends "website/pots_base.html" %}
+
+{% block scripts %}
+    <script type="text/javascript">
+    function edit_what_for(data){
+        form = document.getElementById('edit_what_for_form')
+        form.style.visibility = 'visible'
+    }
+    function what_for_edited(data){
+    	form = document.getElementById('edit_what_for_form')
+        form.style.visibility = 'hidden'
+    }
+    </script>
+{% endblock %}
+
+{% block current %}
+    {% if not pot %}
+        <li><a class="current" href="">Para qué</a></li>
+        <li><a href="">Con quién</a></li>
+        <li><a href="">Qué</a></li>
+        <li><a href="">Cuentas</a></li>
+    {% else %}
+        <li><a class="current" href="{% url view_what_for pot_id=pot.id %}">Para qué</a></li>
+        <li><a href="{% url view_who pot_id=pot.id %}">Con quién</a></li>
+        <li><a href="{% url view_what pot_id=pot.id %}">Qué</a></li>
+        <li><a href="{% url view_pot_details pot_id=pot.id %}">Cuentas</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block pot_content %}
+    {% if not pot %}
+    <div>
+    	<div id="edit_what_for_form">
+			<form action="" enctype="multipart/form-data" method="post">
+		        <div class="form_element">{{ what_for_form.what_for }} de {{ what_for_form.who_for }}</div>
+		        <div class="form_element">{{ what_for_form.date }}</div>
+		        {% csrf_token %}
+		        <input type="submit" value="Crear bote" onclick="what_for_edited()">
+		    </form>
+        </div>
+    </div>
+    {% else %} 
+    <div>
+        <h3>{{pot.what_for}} de {{pot.who_for}}</h3>
+        <div>Es el día {{pot.date}}</div>
+        <a href="#" onclick="edit_what_for()">Editar</a>
+        <div id="edit_what_for_form" style="visibility: hidden;">
+        	<h3>Editar bote</h3>
+			<form action="" enctype="multipart/form-data" method="post">
+		        <div>{{ what_for_form.what_for }} de {{ what_for_form.who_for }}</div>
+		        <div>{{ what_for_form.date }}</div>
+		        {% csrf_token %}
+		        <input type="submit" value="Finalizar edición" onclick="what_for_edited()">
+		    </form>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

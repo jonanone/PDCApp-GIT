@@ -1,0 +1,21 @@
+{% extends "dashboard/dash_base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="span3">
+            <div class="sidebar-nav well">
+                <ul class="nav nav-list">
+                    <li><a href="{% url view_user_friends %}" title=""><i class="icon-user"></i>Mis amigas</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url view_friend_requests %}" title=""><i class="icon-inbox"></i>Peticiones de amistad</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url view_friend_addition %}" title=""><i class="icon-plus"></i>Añadir amiga</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="span9">
+            {% block friend_content %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

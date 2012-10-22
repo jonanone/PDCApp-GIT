@@ -1,0 +1,38 @@
+{% extends "website/web_base.html" %}
+
+{% block header_current %}
+    <ul>
+        <li><a href="{% url view_user_friends %}">Amigas</a></li>
+        <li><a href="{% url view_user_calendar %}">Pink Moments</a></li>
+        <li><a class="current" href="{% url view_user_pots %}">Botes</a></li>
+        <li><a href="{% url view_boutique %}">Regalos</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+
+<!-- CONTENIDO EN DJANGO -->
+<div id="pot_table">
+	<ul>
+		<li class="pot_box">
+			<div class="box_content pot_plus outer">
+				<div class="inner">
+					<a href="{% url view_what_for pot_id=0 %}">+</a>
+				</div>							
+			</div>
+		</li>
+		{% for pot in pots.all %}
+		<li class="pot_box">
+			<div class="box_content outer">
+				<div class="inner">
+					<a href="{% url view_pot_details pot_id=pot.id %}">{{ pot.what_for }} de {{pot.who_for}}</a>
+				</div>							
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+
+
+<!-- FINAL DEL CONTENIDO EN DJANGO -->
+{% endblock %}

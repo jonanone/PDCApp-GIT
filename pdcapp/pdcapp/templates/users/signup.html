@@ -1,0 +1,30 @@
+{% extends "frontend/home_base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Regístrate</h1>
+    <div class="row">
+        <div class="span4 offset4">
+            {% if form.errors %}
+                <div class="alert alert-error">
+                    <p>Nombre de usuario o contraseña no válidos</p>
+                </div>            
+            {% endif %}
+            <form class="well" action="/signup/" method="post" accept-charset="utf-8">
+                <label>Entra en let's sound</label>
+                <input type="text" name="username" class="input-xlarge" placeholder="Nombre de usuario">
+                <input type="text" name="email" class="input-xlarge" placeholder="email">
+                <input type="password" name="password" class="input-xlarge" placeholder="Contraseña">
+                <hr>
+                <input type="text" name="firstname" class="input-xlarge" placeholder="firstname">
+                <input type="text" name="lastname" class="input-xlarge" placeholder="lastname">
+                <label class="checkbox">
+                    <input type="checkbox" name="" value="">Recuérdame
+                </label>
+                <input type="submit" value="Enter" class="btn" />
+                {% csrf_token %}
+            </form>
+        </div>
+    </div><!-- / -->
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "frontend/home_base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="login-form-content">
+        <div class="login-form-wrapper">
+            {% if form.errors %}
+                <div class="alert alert-error">
+                    <p>Nombre de usuario o contraseña no válidos</p>
+                </div>            
+            {% endif %}
+            <form class="vertical_form login_form" autocomplete="on" action="/login/" method="post" accept-charset="utf-8">
+                {{ form.username.errors }}
+                <div class="login_form_element">
+                    {{ form.username }}
+                </div>
+                
+                {{ form.password.errors }}
+                <div class="login_form_element">
+                    {{ form.password }}
+                </div>
+                
+                <input id="login-button" type="submit" value="ENTRAR" class="linearbutton find_pink" />
+                <div class="clear"></div>
+                <label class="checkbox">
+                    <input type="checkbox" name="remember_me" value="">Recuérdame
+                </label>
+                {% csrf_token %}
+            </form>
+        </div>
+    </div><!-- / -->
+</div>
+{% endblock %}

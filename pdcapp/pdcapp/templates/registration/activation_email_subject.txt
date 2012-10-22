@@ -1,0 +1,1 @@
+Activa tu cuenta de Plan de Chicas - tienes{{ expiration_days }} días!

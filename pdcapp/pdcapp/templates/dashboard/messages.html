@@ -1,0 +1,42 @@
+{% extends "dashboard/dashboard.html" %}
+
+{% block dashboard_content %}
+<h1>Messages</h1>
+<hr>
+<div class="columns">
+<p>  </p>
+<ul id="myTab" class="nav nav-tabs">
+    <li class="active"><a class="tabelement" href="#pending" data-toggle="tab">Inbox</a></li>
+    <li class=""><a href="#ignored" data-toggle="tab">Sent messages</a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade" id="pending">
+        {% for message in messages %}
+        <dl>
+            <dt>Sender:</dt>
+            <dd>{{ message.sender }}</dd>
+            <dt>Receiver:</dt>
+            <dd>{{ message.receiver }}</dd>
+            <dt>Message:</dt>
+            <dd>{{ message.text }}</dd>
+            <dt>Date:</dt>
+            <dd>{{ message.date }}</dd>
+        </dl>
+        {% endfor %}
+    </div>
+    <div class="tab-pane fade active in" id="ignored">
+        {% for message in messages %}
+        <dl>
+            <dt>Sender:</dt>
+            <dd>{{ message.sender }}</dd>
+            <dt>Receiver:</dt>
+            <dd>{{ message.receiver }}</dd>
+            <dt>Message:</dt>
+            <dd>{{ message.text }}</dd>
+            <dt>Date:</dt>
+            <dd>{{ message.date }}</dd>
+        </dl>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

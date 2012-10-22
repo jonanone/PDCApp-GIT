@@ -1,0 +1,164 @@
+{% extends "website/pots_base.html" %}
+
+{% block current %}
+	<li><a href="{% url view_what_for pot_id=pot.id %}">Para qué</a></li>
+	<li><a href="{% url view_who pot_id=pot.id %}">Con quién</a></li>
+	<li><a class="current" href="{% url view_what pot_id=pot.id %}">Qué</a></li>
+	<li><a href="{% url view_pot_details pot_id=pot.id %}">Cuentas</a></li>
+{% endblock %}
+
+{% block pot_content %}
+
+<!-- CONTENIDO EN DJANGO -->
+
+<div id="pot_what_content">
+	<div class="pot_what_table">
+		<ul>
+			<li class="pot_what_box">
+				<div class="box_content pot_plus outer">
+					<div class="inner">
+						<a href="">+</a>
+					</div>							
+				</div>
+			</li>
+			{% for choice in choices.all %}
+			<li class="pot_what_box">
+				<div class="box_content outer">
+					<div class="inner">
+						<a class="inner_img" href="{{ choice.product_choice.link }}"><img src="{{MEDIA_URL}}{{ choice.product_choice.profile_image }}" alt=""></a>
+						<div class="inner_info">
+							<div class="text">
+								<p class="name">
+									{{ choice.product_choice.name }}
+								</p>
+								<p class="price">
+									{{choice.product_choice.price}}€
+								</p>
+							</div>
+							<div class="vote">
+								<p>votar</p>
+								<div class="image"></div>
+							</div>
+							<div class="selector">
+								<p>(selec.)</p>
+								<div class="image"></div>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>							
+				</div>
+			</li>
+			{% endfor %}
+			<div class="clear"></div>
+		</ul>
+		<div class="select_button">
+			<a class="find_pink linearbutton" href="">Seleccionar</a>
+		</div>
+	</div>
+</div>
+<div class="clear"></div>
+<div class="content_title">
+	<div class="nav">
+		<ul>
+			<li><p class="current" href="">Recomendamos</p></li>
+			<div class="clear"></div>
+		</ul>
+	</div>
+</div>
+<div id="pot_what_content">
+	<div class="pot_what_table pot_recommend">
+			<ul>
+				<li class="pot_what_box recommendation_box">
+					<div class="box_content outer">
+						<div class="inner">
+							<a class="inner_img" href=""><img src="https://si0.twimg.com/profile_images/1667588254/twitter-2.jpg" alt=""></a>
+							<div class="inner_info">
+								<div class="text">
+									<p class="name">
+										Nombre
+									</p>
+									<p class="price">
+										30€
+									</p>
+								</div>
+								<div class="selector">
+									<p>(selec.)</p>
+									<div class="image"></div>
+								</div>
+								<div class="clear"></div>
+							</div>
+						</div>							
+					</div>
+				</li>
+				<li class="pot_what_box recommendation_box">
+					<div class="box_content outer">
+						<div class="inner">
+							<a class="inner_img" href=""><img src="https://si0.twimg.com/profile_images/1667588254/twitter-2.jpg" alt=""></a>
+							<div class="inner_info">
+								<div class="text">
+									<p class="name">
+										Nombre
+									</p>
+									<p class="price">
+										30€
+									</p>
+								</div>
+								<div class="selector">
+									<p>(selec.)</p>
+									<div class="image"></div>
+								</div>
+								<div class="clear"></div>
+							</div>
+						</div>							
+					</div>
+				</li><li class="pot_what_box recommendation_box">
+					<div class="box_content outer">
+						<div class="inner">
+							<a class="inner_img" href=""><img src="https://si0.twimg.com/profile_images/1667588254/twitter-2.jpg" alt=""></a>
+							<div class="inner_info">
+								<div class="text">
+									<p class="name">
+										Nombre
+									</p>
+									<p class="price">
+										30€
+									</p>
+								</div>
+								<div class="selector">
+									<p>(selec.)</p>
+									<div class="image"></div>
+								</div>
+								<div class="clear"></div>
+							</div>
+						</div>							
+					</div>
+				</li><li class="pot_what_box recommendation_box">
+					<div class="box_content outer">
+						<div class="inner">
+							<a class="inner_img" href=""><img src="https://si0.twimg.com/profile_images/1667588254/twitter-2.jpg" alt=""></a>
+							<div class="inner_info">
+								<div class="text">
+									<p class="name">
+										Nombre
+									</p>
+									<p class="price">
+										30€
+									</p>
+								</div>
+								<div class="selector">
+									<p>(selec.)</p>
+									<div class="image"></div>
+								</div>
+								<div class="clear"></div>
+							</div>
+						</div>							
+					</div>
+				</li>
+				<div class="clear"></div>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- FINAL DEL CONTENIDO EN DJANGO -->
+
+{% endblock %}

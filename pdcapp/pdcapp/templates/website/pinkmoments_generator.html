@@ -1,0 +1,18 @@
+{% extends "website/pinkmoments_base.html" %}
+
+{% block current %}
+	<li><a href="{% url view_user_calendar %}">Calendario</a></li>
+	<li><a class="current" href="{% url view_pinkmoments_generator %}">Generador</a></li>
+{% endblock %}
+
+{% block pinkmoments_content %}
+<div id="landing_info">
+	<div class="landing_info_wrapper">
+		<h1>¿No sabes qué hacer con tus amigas?</h1>
+		<div class="clear"></div>
+		<a class="linearbutton find_pink"href="">Pulsa otra vez</a>
+		<div class="clear"></div>
+		
+	</div>
+</div>
+{% endblock %}

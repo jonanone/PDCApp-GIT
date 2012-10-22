@@ -1,0 +1,32 @@
+{% extends "dashboard/dash_base.html" %}
+
+{% block header_current %}
+    <ul>
+        <li><a href="{% url view_user_friends %}">Amigas</a></li>
+        <li><a href="{% url view_user_calendar %}">Pink Moments</a></li>
+        <li><a class="current" href="{% url view_user_pots %}">Botes</a></li>
+        <li><a href="{% url view_boutique %}">Regalos</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="span3">
+            <div class="sidebar-nav well">
+                <ul class="nav nav-list">
+                    <li><a href="{% url view_what_for pot_id=pot.id %}" title=""><i class="icon-file"></i>¿Para qué?</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url view_who pot_id=pot.id %}" title=""><i class="icon-user"></i>¿Quién?</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url view_what pot_id=pot.id %}" title=""><i class="icon-gift"></i>¿Qué?</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url view_pot_details pot_id=pot.id %}" title=""><i class="icon-list"></i>Cuentas</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="span9">
+            {% block pot_content %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
